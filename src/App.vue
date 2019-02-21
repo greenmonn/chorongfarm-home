@@ -1,29 +1,48 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <app-nav-bar></app-nav-bar>
+
+        <router-view></router-view>
+
+        <app-footer></app-footer>
     </div>
-    <router-view/>
-  </div>
 </template>
 
+<script>
+import NavBar from './components/layout/NavBar.vue';
+import Footer from './components/layout/Footer.vue';
+
+export default {
+  components: {
+    appNavBar: NavBar,
+    appFooter: Footer,
+  },
+  data() {
+    return {};
+  },
+};
+</script>
+
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Muli");
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR");
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
+    position: relative;
+    min-height: 100%;
+
+    font-family: Muli, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
     color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+
+    word-break: keep-all;
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
     }
-  }
 }
 </style>

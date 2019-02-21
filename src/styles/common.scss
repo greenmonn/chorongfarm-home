@@ -1,0 +1,37 @@
+$mainColor: #92531f;
+
+.splitter {
+    &:after {
+        content: '|';
+        font-style: normal;
+        color: lightgray;
+        margin: auto 4px;
+    }
+}
+
+.filled-button {
+    height: 55px;
+    background: #222;
+    border-color: #222;
+    color: white;
+    font-size: 16px;
+}
+
+.content-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+dl {
+    text-align: left;
+    line-height: 1.9;
+    margin-left: 30px;
+
+    dt {
+        display: inline-block;
+        width: 110px;
+    }
+    dd {
+        display: inline-block;
+    }
+}
