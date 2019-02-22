@@ -12,10 +12,14 @@
 import NavBar from './components/layout/NavBar.vue';
 import Footer from './components/layout/Footer.vue';
 
+
 export default {
   components: {
     appNavBar: NavBar,
     appFooter: Footer,
+  },
+  created() {
+
   },
   data() {
     return {};
@@ -26,6 +30,10 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Muli");
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR");
+
+body, html {
+  height: 100%;
+}
 
 #app {
     position: relative;
