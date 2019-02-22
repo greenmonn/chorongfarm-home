@@ -1,6 +1,6 @@
 <template>
   <div class="content-wrapper content">
-    <div class="order-message">감사합니다. 주문이 등록ㅞ되었습니다.</div>
+    <div class="order-message">감사합니다. 주문이 등록되었습니다.</div>
 
     <div class="box">
       <strong>농협 745048-56-009118</strong>
@@ -11,9 +11,10 @@
       위의 계좌번호로
       <strong>{{ formatPrice(totalPrice) }}</strong>원을 입금해 주시면 배송이 시작됩니다.
       <br>
+      입금자명은 {{ orderName }}으로 기재 부탁드립니다.
     </p>
     <p class="inquiry-message">
-      배송이 시작되면 문자로 안내드리겠습니다. <br> 문의 사항이 있으시다면 010-6478-2959로 연락 부탁드립니다.
+      배송이 시작되면 입력해주신 {{ orderPhoneNumber }}로 안내드리겠습니다. <br> 문의 사항이 있으시다면 010-6478-2959로 연락 부탁드립니다.
     </p>
 
   </div>
@@ -39,13 +40,15 @@ export default {
   computed: {
     ...mapGetters({
       totalPrice: 'getPriceResult',
+      orderName: 'getOrderName',
+      orderPhoneNumber: 'getOrderPhoneNumber',
     }),
   },
   methods: {
     formatPrice: logics.formatPrice,
   },
   beforeRouteLeave(to, from, next) {
-    this.$store.commit('resetPriceResult');
+    this.$store.commit('resetOrderResult');
     next();
   },
 };

@@ -8,6 +8,8 @@ export default new Vuex.Store({
   state: {
     selections: {},
     priceResult: 0,
+    orderName: '',
+    orderPhoneNumber: '',
   },
   getters: {
     getPriceSum(state) {
@@ -21,6 +23,12 @@ export default new Vuex.Store({
     },
     getPriceResult(state) {
       return state.priceResult;
+    },
+    getOrderName(state) {
+      return state.orderName;
+    },
+    getOrderPhoneNumber(state) {
+      return state.orderPhoneNumber;
     },
   },
   mutations: {
@@ -45,11 +53,15 @@ export default new Vuex.Store({
     resetSelections(state) {
       state.selections = {};
     },
-    setPriceResult(state, price) {
-      state.priceResult = price;
+    setOrderResult(state, result) {
+      state.priceResult = result.price;
+      state.orderName = result.name;
+      state.orderPhoneNumber = result.phoneNumber;
     },
-    resetPriceResult(state) {
+    resetOrderResult(state) {
       state.priceResult = 0;
+      state.orderName = '';
+      state.orderPhoneNumber = '';
     }
   },
   actions: {

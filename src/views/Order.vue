@@ -185,7 +185,11 @@ export default {
           totalPrice: this.totalPrice,
         })
         .then(() => {
-          this.$store.commit('setPriceResult', this.totalPrice);
+          this.$store.commit('setOrderResult', {
+            price: this.totalPrice,
+            name: this.name,
+            phoneNumber: this.phoneNumber,
+          });
           this.$store.commit('resetSelections');
           this.$router.push({ name: 'orderComplete' });
         })
