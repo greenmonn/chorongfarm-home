@@ -25,6 +25,11 @@ module.exports = {
               '//dapi.kakao.com/v2/maps/sdk.js?appkey=c1c962956ce1fc22660080992e45295a&libraries=clusterer',
             global: 'daum-map-api',
           },
+          {
+            module: 'daum-postcode-api',
+            entry: 'http://dmaps.daum.net/map_js_init/postcode.v2.js',
+            global: 'daum-postcode-api',
+          },
         ],
       }),
     ],

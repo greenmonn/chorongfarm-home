@@ -9,4 +9,7 @@ export default {
 
     return converted.join('');
   },
+  calculatePrice(price, extra, unit, quantity) {
+    return (price + extra) * unit * quantity;
+  },
 };

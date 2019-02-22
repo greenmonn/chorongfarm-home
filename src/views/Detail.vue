@@ -3,24 +3,24 @@
     <div class="product-summary columns">
       <div class="thumbnail column is-5">
         <div>
-          <img src="../assets/sanghwang.jpg" alt="상황버섯">
+          <img :src="require(`@/assets/${images[0]}`)">
         </div>
         <div class="preview-group columns is-mobile">
           <div class="preview column is-4">
-            <img src="../assets/sanghwang.jpg" alt="1">
+            <img :src="require(`@/assets/${images[0]}`)">
           </div>
           <div class="preview column is-4">
-            <img src="../assets/sanghwang2.jpg" alt="1">
+            <img :src="require(`@/assets/${images[1]}`)">
           </div>
           <div class="preview column is-4">
-            <img src="../assets/mushroom_box.png" alt="1">
+            <img :src="require(`@/assets/${images[2]}`)">
           </div>
         </div>
       </div>
 
       <div class="product-description column">
         <div>
-          <p class="content-title">유기농 상황버섯</p>
+          <p class="content-title">유기농 {{ name }}</p>
           <hr>
           <div class="content">
             <dl>
@@ -73,27 +73,23 @@
                   <i class="fa fa-minus"></i>
                 </span>
               </div>
-              <button @click="addSelectedOptions" class="filled-button">
+              <button @click="addSelection" class="filled-button">
                 <i class="fas fa-shopping-basket"></i> 담기
               </button>
             </div>
           </div>
 
-          <div class="selected-options-list">
-            <div
-              v-for="selectedOptions in selectedOptionsList"
-              :key="selectedOptions.timestamp"
-              class="box selected-options"
-            >
-              {{ selectedOptions.type }}
+          <div class="selections">
+            <div v-for="(s, id) in selections" :key="id" class="box selected-options">
+              {{ s.type }}
               <i class="splitter"></i>
-              <select>
-                <option value="100g">{{ selectedOptions.unit }}</option>
+              <select :value="s.unit" @change="changeUnit($event, id)">
+                <option v-for="(value, unit) in units" :key="value">{{ unit }}</option>
               </select>
               <i class="splitter"></i>
-              <input type="number" :value="selectedOptions.quantity"> 개
-              <strong>{{ formatPrice(selectedOptions.price) }}원</strong>
-              <span @click="removeSelectedOptions(selectedOptions.timestamp)">
+              <input type="number" :value="s.quantity" @input="changeQuantity($event, id)"> 개
+              <strong>{{ formatPrice(s.price) }}원</strong>
+              <span @click="removeSelection(id)">
                 <i class="fa fa-window-close" aria-hidden="true"></i>
               </span>
             </div>
@@ -101,7 +97,9 @@
           <hr>
 
           <div class="shop-buttons">
-            <button class="filled-button">주문하기</button>
+            <router-link tag="button"
+            :to="{ name: 'order' }"
+            class="filled-button">주문하기</router-link>
           </div>
         </div>
       </div>
@@ -112,94 +110,105 @@
 </template>
 
 <script>
+import detail from '../data/detail';
+import logics from '../data/logics';
+
 export default {
+  beforeRouteEnter(to, from, next) {
+    if (!detail[to.params.key]) {
+      next('/');
+    } else {
+      next();
+    }
+  },
   data() {
+    const { key } = this.$route.params;
     return {
-      price: 85000,
-      priceForSale: 39900,
-      from: "한국 (경상북도 문경시)",
-      types: {
-        생버섯: 0,
-        건조버섯: 5000
-      },
-      selectedType: "",
-      units: {
-        "100g": 1,
-        "500g": 5,
-        "1kg": 10
-      },
-      selectedUnit: "",
+      key,
+      ...detail[key],
+      selectedType: '',
+      selectedUnit: '',
       quantity: 1,
-      selectedOptionsList: []
     };
   },
   computed: {
-    priceString: function() {
-      return this.formatPrice(this.price);
+    priceString() {
+      return logics.formatPrice(this.price);
     },
-    priceForSaleString: function() {
-      return this.formatPrice(this.priceForSale);
-    }
+    priceForSaleString() {
+      return logics.formatPrice(this.priceForSale);
+    },
+    selections() {
+      return this.$store.state.selections;
+    },
   },
   methods: {
-    selectType: function(event) {
+    formatPrice: logics.formatPrice,
+    calculatePrice: logics.calculatePrice,
+    selectType(event) {
       this.selectedType = event.target.innerText;
     },
-    selectUnit: function(event) {
+    selectUnit(event) {
       this.selectedUnit = event.target.innerText;
     },
-    addSelectedOptions: function() {
-      if (this.selectedType == "" || this.selectedUnit == "") {
-        alert("옵션을 선택해주세요");
+    addSelection() {
+      if (this.selectedType === '' || this.selectedUnit === '') {
+        alert('옵션을 선택해주세요');
         return;
       }
-      const selectedOptions = {
+
+      this.$store.commit('addSelection', {
+        name: this.name,
+        unitPrice: this.priceForSale,
         type: this.selectedType,
         unit: this.selectedUnit,
         quantity: this.quantity,
-        price:
-          (this.priceForSale + this.types[this.selectedType]) *
-          this.units[this.selectedUnit] *
+        price: logics.calculatePrice(
+          this.priceForSale,
+          this.types[this.selectedType],
+          this.units[this.selectedUnit],
           this.quantity,
-        timestamp: Date.now()
-      };
-
-      this.selectedOptionsList.unshift(selectedOptions);
-      this.resetSelectedOptions();
+        ),
+        timestamp: Date.now(),
+      });
+      this.resetSelection();
     },
-    removeSelectedOptions: function(timestamp) {
-      for (var i=0; i<this.selectedOptionsList.length; i++) {
-        if (this.selectedOptionsList[i].timestamp = timestamp) {
-          this.selectedOptionsList.splice(i, 1)
-          return
-        }
-      }
+    removeSelection(timestamp) {
+      this.$store.commit('removeSelection', timestamp);
     },
-    resetSelectedOptions: function() {
-      this.selectedUnit = '',
-      this.selectedType = '',
+    resetSelection() {
+      this.selectedUnit = '';
+      this.selectedType = '';
       this.quantity = 1;
     },
-    formatPrice: function(priceNumber) {
-      const converted = Array.from(priceNumber.toString());
-      var i = 1;
-      while (true) {
-        if (converted.length - 4 * i < 0) {
-          break;
-        }
-        converted.splice(converted.length - 4 * i + 1, 0, ",");
-        i++;
-      }
-
-      return converted.join("");
-    }
-  }
+    changeQuantity(event, id) {
+      const s = this.selections[id];
+      const quantity = event.target.value;
+      const price = this.calculatePrice(
+        s.unitPrice,
+        this.types[s.type],
+        this.units[s.unit],
+        quantity,
+      );
+      this.$store.commit('changeQuantity', { id, quantity, price });
+    },
+    changeUnit(event, id) {
+      const s = this.selections[id];
+      const unit = event.target.value;
+      const price = this.calculatePrice(
+        s.unitPrice,
+        this.types[s.type],
+        this.units[unit],
+        s.quantity,
+      );
+      this.$store.commit('changeUnit', { id, unit, price });
+    },
+  },
 };
 </script>
 
 
 <style lang="scss" scoped>
-
 .product-summary {
   @media only screen and (min-width: 1420px) {
     margin: 5% 20% auto 20%;
@@ -219,7 +228,6 @@ export default {
 
 .product-description {
   div.content {
-
     .quantity-wrapper {
       margin: 7% auto;
       height: 55px;

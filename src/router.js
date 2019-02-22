@@ -5,6 +5,7 @@ import Home from './views/Home.vue';
 import NotFound from './views/NotFound.vue';
 import Detail from './views/Detail.vue';
 import Order from './views/Order.vue';
+import OrderComplete from './views/OrderComplete.vue';
 
 Vue.use(Router);
 
@@ -23,7 +24,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
     },
     {
-      path: '/detail',
+      path: '/detail/:key',
       name: 'detail',
       component: Detail,
     },
@@ -32,6 +33,11 @@ export default new Router({
       name: 'order',
       component: Order,
       props: true,
+    },
+    {
+      path: '/orderComplete',
+      name: 'orderComplete',
+      component: OrderComplete,
     },
     {
       path: '*',

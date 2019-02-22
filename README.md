@@ -1,4 +1,4 @@
-# chorongfarm-home-vue3
+# chorongfarm-home
 
 ## Project setup
 ```

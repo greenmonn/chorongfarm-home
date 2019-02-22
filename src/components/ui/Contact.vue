@@ -78,13 +78,7 @@
 </template>
 
 <script>
-import firebase from 'firebase';
-import config from '../../firebase/config';
-
-firebase.initializeApp(config);
-
-const database = firebase.firestore();
-const inquiryCollection = database.collection('inquiries');
+import { inquiryCollection } from '../../firebase/database';
 
 export default {
   data() {
