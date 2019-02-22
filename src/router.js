@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Meta from 'vue-meta';
 
 import Home from './views/Home.vue';
 import NotFound from './views/NotFound.vue';
@@ -8,6 +9,7 @@ import Order from './views/Order.vue';
 import OrderComplete from './views/OrderComplete.vue';
 
 Vue.use(Router);
+Vue.use(Meta);
 
 export default new Router({
   mode: 'history',
