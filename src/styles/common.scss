@@ -43,3 +43,16 @@ dl {
         display: inline-block;
     }
 }
+
+.show-on-pc {
+    @media (max-width: 632px) {
+        display: none;
+    }
+}
+
+.show-on-mobile {
+    display: none;
+    @media (max-width: 632px) {
+        display: block;
+    }
+}
