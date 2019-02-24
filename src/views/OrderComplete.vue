@@ -59,11 +59,12 @@ export default {
   margin-top: 10%;
 
   .order-message {
-    font-size: large;
+    font-size: larger;
   }
 
   .box {
-    margin: 5% auto;
+    margin: 40px auto;
+    max-width: 500px;
     font-size: larger;
   }
   .price-message {

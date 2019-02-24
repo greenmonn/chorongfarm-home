@@ -39,6 +39,7 @@ html {
 #app {
   position: relative;
   min-height: 100%;
+  padding-bottom: 100px;
 
   font-family: Muli, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -39,8 +39,7 @@
         <dl>
           <dt>연락처</dt>
           <dd>
-            <input v-model="phoneNumber" class="input" type="tel"
-            placeholder="'-'를 포함해서 입력">
+            <input v-model="phoneNumber" class="input" type="tel" placeholder="'-'를 포함해서 입력">
           </dd>
         </dl>
         <div
@@ -58,7 +57,7 @@
         </div>
         <dl>
           <dt>주소</dt>
-          <dd>
+          <dd class="address">
             <input class="input post-code" type="text" placeholder="우편번호" v-model="postcode">
             <input class="button" type="button" value="우편번호 찾기" @click="execDaumPostcode">
             <br>
@@ -73,6 +72,7 @@
             >
           </dd>
         </dl>
+        
         <dl>
           <dt>요청사항</dt>
           <dd>
@@ -140,8 +140,8 @@ export default {
             }
 
             if (data.buildingName !== '' && data.apartment === 'Y') {
-              this.extraAddress
-                  += this.extraAddress !== ''
+              this.extraAddress +=
+                this.extraAddress !== ''
                   ? `, ${data.buildingName}`
                   : data.buildingName;
             }
@@ -214,13 +214,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+break{
+  flex-basis: 100%;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+}
+
+.content-title {
+  margin-top: 30px;
+}
 .content {
   .order-info {
     .box {
-      margin: auto auto 3%;
+      margin: 30px auto 20px;
     }
     hr {
-      margin: 5% auto 2%;
+      margin: 40px auto 20px;
     }
     .result {
       margin: auto auto auto;
@@ -236,10 +246,13 @@ export default {
   }
 
   .order-form {
-    margin: 5% auto;
+    margin: 5% 0 5% -20px;
     dt {
       font-size: large;
       font-weight: 600;
+    }
+    dd.address {
+      display: inline-block;
     }
     input {
       margin-bottom: 3%;
