@@ -7,6 +7,8 @@
 
         <app-products></app-products>
 
+        <app-order-check-button></app-order-check-button>
+
         <hr>
 
         <app-map name="location"></app-map>
@@ -23,6 +25,7 @@ import Intro from '../components/ui/Intro.vue';
 import Contact from '../components/ui/Contact.vue';
 import Map from '../components/ui/Map.vue';
 import Products from '../components/ui/Products.vue';
+import OrderCheckButton from '../components/ui/OrderCheckButton.vue';
 
 export default {
   components: {
@@ -31,6 +34,10 @@ export default {
     appContact: Contact,
     appMap: Map,
     appProducts: Products,
+    appOrderCheckButton: OrderCheckButton,
   },
 };
 </script>
+
+<style>
+</style>

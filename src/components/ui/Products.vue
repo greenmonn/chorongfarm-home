@@ -11,7 +11,7 @@
                         </figure>
                         <h2>노루궁뎅이버섯</h2>
                         <p>치매 예방과 염증 억제에 <wbr> 탁월하다고 알려져 있습니다.</p>
-                        <router-link :to="{ name: 'detail', params: { key: 'noru'} }" class="button is-light">자세히 알아보기</router-link>
+                        <router-link :to="{ name: 'detail', params: { key: 'noru'} }" class="button is-light">구입하기</router-link>
                     </article>
                 </div>
                 <div class="tile is-parent is-4">
@@ -23,7 +23,7 @@
                         <p>항암효과와 면역력 증진을 <wbr> 도와주는 약용버섯입니다.</p>
                         <router-link
                         :to="{ name: 'detail', params: { key: 'sanghwang'} }"
-                        class="button is-light">자세히 알아보기</router-link>
+                        class="button is-light">구입하기</router-link>
                     </article>
                 </div>
                 <div class="tile is-parent is-4">
@@ -35,7 +35,7 @@
                         <p>각종 성인병을 예방하고 <wbr> 식재료로 사랑받는 버섯입니다.</p>
                         <router-link
                          :to="{ name: 'detail', params: { key: 'oyster'} }"
-                         class="button is-light">자세히 알아보기</router-link>
+                         class="button is-light">구입하기</router-link>
                     </article>
                 </div>
             </div>

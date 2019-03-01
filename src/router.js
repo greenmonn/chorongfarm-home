@@ -7,6 +7,7 @@ import NotFound from './views/NotFound.vue';
 import Detail from './views/Detail.vue';
 import Order from './views/Order.vue';
 import OrderComplete from './views/OrderComplete.vue';
+import OrderCheck from './views/OrderCheck.vue';
 
 Vue.use(Router);
 Vue.use(Meta);
@@ -14,6 +15,12 @@ Vue.use(Meta);
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { x: 0, y: 0 };
+  },
   routes: [
     {
       path: '/',
@@ -40,6 +47,11 @@ export default new Router({
       path: '/orderComplete',
       name: 'orderComplete',
       component: OrderComplete,
+    },
+    {
+      path: '/orderCheck',
+      name: 'orderCheck',
+      component: OrderCheck,
     },
     {
       path: '*',
