@@ -3,18 +3,7 @@
     <div class="content-title">간단한 정보 입력으로 쉽게 주문하실 수 있습니다.</div>
     <div class="content-wrapper content">
       <div class="order-info">
-        <div class="box" v-for="(s, id) in selections" :key="id">
-          <p>
-            <strong>{{ s.name }}</strong>
-            ({{ s.type }})
-          </p>
-          단위: {{ s.unit }}
-          <i class="splitter"></i>
-          수량: {{ s.quantity }}개
-          <i class="splitter"></i>
-          가격:
-          <strong>{{ formatPrice(s.price) }}</strong>원
-        </div>
+        <app-order-list :orderList="selections"></app-order-list>
 
         <hr>
 
@@ -72,7 +61,6 @@
             >
           </dd>
         </dl>
-        
         <dl>
           <dt>요청사항</dt>
           <dd>
@@ -88,12 +76,17 @@
 <script>
 import { mapState } from 'vuex';
 
+import OrderList from '../components/ui/OrderList.vue';
+
 import store from '../store';
 import logics from '../data/logics';
 
 import { orderCollection } from '../firebase/database';
 
 export default {
+  components: {
+    appOrderList: OrderList,
+  },
   beforeRouteEnter(to, from, next) {
     const selectionsCount = Object.keys(store.state.selections).length;
     if (selectionsCount === 0) {
@@ -140,8 +133,8 @@ export default {
             }
 
             if (data.buildingName !== '' && data.apartment === 'Y') {
-              this.extraAddress +=
-                this.extraAddress !== ''
+              this.extraAddress
+                += this.extraAddress !== ''
                   ? `, ${data.buildingName}`
                   : data.buildingName;
             }
@@ -183,12 +176,13 @@ export default {
           message: this.message,
           orderList: this.selections,
           totalPrice: this.totalPrice,
+          status: 'beforePay',
         })
         .then(() => {
           this.$store.commit('setOrderResult', {
             price: this.totalPrice,
             name: this.name,
-            phoneNumber: this.phoneNumber,
+            phoneNumber: logics.formatPhoneNumber(this.phoneNumber),
           });
           this.$store.commit('resetSelections');
           this.$router.push({ name: 'orderComplete' });
