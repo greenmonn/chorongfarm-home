@@ -20,19 +20,19 @@
 
       <div class="product-description column">
         <div>
-          <p class="content-title">유기농 {{ name }}</p>
+          <p class="content-title">{{ name }}</p>
           <hr>
           <div class="content">
             <dl>
               <dt>판매가</dt>
               <dd>
-                <strong>{{ priceString }}원</strong>
+                {{ priceString }}원
               </dd>
             </dl>
             <dl>
               <dt>할인판매가</dt>
               <dd>
-                <strong>39,900원 [53%]</strong>
+                <strong>{{ priceForSaleString }}원 [{{ priceSaleRate }}%]</strong>
               </dd>
             </dl>
             <dl>
@@ -137,6 +137,9 @@ export default {
     },
     priceForSaleString() {
       return logics.formatPrice(this.priceForSale);
+    },
+    priceSaleRate() {
+      return (this.priceForSale / this.price).toFixed(2) * 100;
     },
     selections() {
       return this.$store.state.selections;
