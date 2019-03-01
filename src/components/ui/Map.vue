@@ -5,7 +5,7 @@
       <p>경상북도 문경시 산양면 추암1길 65-2
         <wbr>(존도리 507번지)
       </p>
-      <div class="map" :id="mapName"></div>
+      <div class="map" :id="mapName" @click="toggleZoomable()"></div>
     </div>
   </section>
 </template>
@@ -16,6 +16,8 @@ export default {
   data() {
     return {
       mapName: `${this.name}-map`,
+      map: null,
+      isZoomable: false,
     };
   },
   mounted() {
@@ -26,11 +28,20 @@ export default {
     };
 
     const map = new daum.maps.Map(container, options);
+    map.setZoomable(false);
+
+    this.map = map;
 
     const marker = new daum.maps.Marker({
       map,
       position: new daum.maps.LatLng(36.617087, 128.242805),
     });
+  },
+  methods: {
+    toggleZoomable() {
+      this.isZoomable = !this.isZoomable;
+      this.map.setZoomable(this.isZoomable);
+    },
   },
 };
 </script>
