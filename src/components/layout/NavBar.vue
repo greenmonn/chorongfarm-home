@@ -15,11 +15,12 @@
         <div class="navbar-end">
           <a class="navbar-item" href="/#intro">걸어온 길</a>
           <a class="navbar-item" href="/#products">구입하기</a>
+          <router-link class="navbar-item" :to="{ name: 'orderCheck'}">주문 조회</router-link>
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link" href="#">더보기</a>
             <div class="navbar-dropdown is-boxed">
-              <a class="navbar-item" href="/#contact">문의하기</a>
               <a class="navbar-item" href="/#map">찾아오시는길</a>
+              <a class="navbar-item" href="/#contact">문의하기</a>
             </div>
           </div>
           <div class="navbar-item">

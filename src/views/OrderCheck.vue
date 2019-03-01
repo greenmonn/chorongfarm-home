@@ -147,7 +147,7 @@ export default {
   hr {
     margin: 50px auto;
   }
-  
+
   h5 {
     font-weight: 400;
     margin: 30px auto;
