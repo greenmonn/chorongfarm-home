@@ -12,4 +12,27 @@ export default {
   calculatePrice(price, extra, unit, quantity) {
     return (price + extra) * unit * quantity;
   },
+  formatPhoneNumber(phoneNumber) {
+    // Add '-' to the string
+    const numbers = Array.from(this.unformatPhoneNumber(phoneNumber));
+
+    numbers.splice(3, 0, '-');
+    numbers.splice(8, 0, '-');
+
+    return numbers.join('');
+  },
+  unformatPhoneNumber(phoneNumber) {
+    // Remove '-' from the string
+    return phoneNumber.replace(/-/g, '');
+  },
+  formatDate(date) {
+    const options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+
+    return date.toLocaleDateString('ko-kr', options);
+  },
 };
