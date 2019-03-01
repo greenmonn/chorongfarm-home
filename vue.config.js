@@ -1,6 +1,7 @@
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 
 module.exports = {
+  runtimeCompiler: true,
   css: {
     loaderOptions: {
       sass: {
