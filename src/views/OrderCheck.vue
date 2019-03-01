@@ -38,9 +38,9 @@
 
     <div class="result" v-if="showResult">
       <p>총 {{ orderCounts }}개의 주문이 있습니다.</p>
-      <hr>
 
       <div class="content" v-for="order in orders" :key="order.date.toString()">
+        <hr>
         <h4>{{ formatDate(order.date) }} 주문</h4>
         <h5>
           총 결제금액 {{ formatPrice(order.totalPrice) }}원
@@ -52,7 +52,6 @@
         </p>
 
         <app-order-list :orderList="order.orderList"></app-order-list>
-        <hr>
       </div>
     </div>
   </div>
@@ -143,11 +142,12 @@ export default {
   color: white;
 }
 
-hr {
-  margin: 50px auto;
-}
 
 .result {
+  hr {
+    margin: 50px auto;
+  }
+  
   h5 {
     font-weight: 400;
     margin: 30px auto;
